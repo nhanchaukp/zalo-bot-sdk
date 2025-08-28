@@ -8,6 +8,7 @@ use Illuminate\Support\Collection;
 use NhanChauKP\ZaloBotSdk\Commands\CommandManager;
 use NhanChauKP\ZaloBotSdk\Contracts\HttpClientInterface;
 use NhanChauKP\ZaloBotSdk\Contracts\ZaloBotInterface;
+use NhanChauKP\ZaloBotSdk\Enums\ChatAction;
 use NhanChauKP\ZaloBotSdk\Exceptions\ZaloBotException;
 use NhanChauKP\ZaloBotSdk\Http\GuzzleHttpClient;
 
@@ -103,12 +104,13 @@ final class ZaloBot implements ZaloBotInterface
     }
 
     /**
-     * Get user profile
+     * Send chat action (typing, upload_photo)
      */
-    public function getUserProfile(string $userId): array
+    public function sendChatAction(string $chatId, ChatAction $action): array
     {
-        return $this->makeRequest('getUserProfile', [
-            'user_id' => $userId,
+        return $this->makeRequest('sendChatAction', [
+            'chat_id' => $chatId,
+            'action' => $action->value,
         ]);
     }
 

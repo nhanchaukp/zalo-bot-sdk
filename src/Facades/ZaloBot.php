@@ -16,7 +16,7 @@ use NhanChauKP\ZaloBotSdk\Services\ZaloBotManager;
  * @method static array sendMessage(string $chatId, string $text)
  * @method static array sendPhoto(string $chatId, string $photo, ?string $caption = null)
  * @method static array sendSticker(string $chatId, string $sticker)
- * @method static array getUserProfile(string $userId)
+ * @method static array sendChatAction(string $chatId, \NhanChauKP\ZaloBotSdk\Enums\ChatAction $action)
  * @method static array setWebhook(string $url)
  * @method static array deleteWebhook()
  * @method static array getWebhookInfo()

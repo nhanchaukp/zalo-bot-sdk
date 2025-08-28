@@ -54,16 +54,14 @@ try {
     echo "Error sending sticker: " . $e->getMessage() . "\n";
 }
 
-// Example: Get user profile
+// Example: Send chat action (typing)
 try {
-    $userId = 'USER_ID_HERE'; // Replace with actual user ID
-    
-    $profile = $bot->getUserProfile($userId);
-    echo "User profile retrieved successfully!\n";
-    print_r($profile);
+    $result = $bot->sendChatAction($chatId, \NhanChauKP\ZaloBotSdk\Enums\ChatAction::Typing);
+    echo "Chat action sent successfully!\n";
+    print_r($result);
     
 } catch (Exception $e) {
-    echo "Error getting user profile: " . $e->getMessage() . "\n";
+    echo "Error sending chat action: " . $e->getMessage() . "\n";
 }
 
 // Example: Set webhook

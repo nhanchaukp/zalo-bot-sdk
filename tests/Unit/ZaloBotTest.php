@@ -129,23 +129,23 @@ class ZaloBotTest extends TestCase
     }
 
     #[Test]
-    public function it_can_get_user_profile(): void
+    public function it_can_send_chat_action_typing(): void
     {
-        $expectedResponse = ['ok' => true, 'result' => ['id' => 'user123', 'name' => 'Test User']];
+        $expectedResponse = ['ok' => true];
         
         $this->mockHttpClient
             ->expects($this->once())
             ->method('post')
             ->with(
-                'https://bot-api.zapps.me/bottest-token/getUserProfile',
-                ['user_id' => 'user123'],
+                'https://bot-api.zapps.me/bottest-token/sendChatAction',
+                ['chat_id' => 'test-chat', 'action' => 'typing'],
                 [
                     'Content-Type' => 'application/json'
                 ]
             )
             ->willReturn($expectedResponse);
 
-        $result = $this->bot->getUserProfile('user123');
+        $result = $this->bot->sendChatAction('test-chat', \NhanChauKP\ZaloBotSdk\Enums\ChatAction::Typing);
 
         $this->assertEquals($expectedResponse, $result);
     }
