@@ -63,6 +63,9 @@
         }
     },
     "extra": {
+        "branch-alias": {
+            "dev-main": "1.0.x-dev"
+        },
         "laravel": {
             "providers": [
                 "NhanChauKP\\ZaloBotSdk\\ZaloBotServiceProvider"
