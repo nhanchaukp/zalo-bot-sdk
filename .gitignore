@@ -11,3 +11,24 @@ phpunit.xml.dist
 .env
 .env.*
 !.env.example
+
+# Additional Laravel gitignore entries
+node_modules/
+npm-debug.log
+yarn-error.log
+bootstrap/compiled.php
+app/storage/
+public/storage
+public/hot
+public_html/storage
+public_html/hot
+storage/*.key
+Homestead.yaml
+Homestead.json
+/.vagrant
+/public/build
+/storage/pail
+.env.backup
+.env.production
+.phpactor.json
+auth.json
