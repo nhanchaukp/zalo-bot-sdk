@@ -98,10 +98,11 @@ ZaloBot::bot('support_bot')->sendMessage('chat_id', 'Chúng tôi có thể giúp
 ZaloBot::sendPhoto('chat_id', 'https://example.com/image.jpg', 'Caption cho hình ảnh');
 ```
 
-### Gửi document
+### Gửi sticker
 
 ```php
-ZaloBot::sendDocument('chat_id', 'https://example.com/document.pdf', 'Tài liệu quan trọng');
+// Lấy sticker từ https://stickers.zaloapp.com/
+ZaloBot::sendSticker('chat_id', 'sticker_id_from_stickers_zaloapp_com');
 ```
 
 ### Lấy thông tin user

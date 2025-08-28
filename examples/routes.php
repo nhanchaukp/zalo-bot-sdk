@@ -43,6 +43,15 @@ Route::prefix('api/zalo/test')->group(function () {
         return response()->json($result);
     });
     
+    Route::post('/send-sticker', function () {
+        $chatId = request('chat_id');
+        $sticker = request('sticker');
+        
+        $result = \NhanChauKP\ZaloBotSdk\Facades\ZaloBot::sendSticker($chatId, $sticker);
+        
+        return response()->json($result);
+    });
+    
     Route::get('/user-profile/{userId}', function ($userId) {
         $result = \NhanChauKP\ZaloBotSdk\Facades\ZaloBot::getUserProfile($userId);
         

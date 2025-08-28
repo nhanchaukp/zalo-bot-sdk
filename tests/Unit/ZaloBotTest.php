@@ -64,11 +64,10 @@ class ZaloBotTest extends TestCase
             ->expects($this->once())
             ->method('post')
             ->with(
-                'https://bot-api.zapps.me/bot/test-token/sendMessage',
+                'https://bot-api.zapps.me/bottest-token/sendMessage',
                 ['chat_id' => 'test-chat', 'text' => 'Hello World'],
                 [
-                    'Content-Type' => 'application/json',
-                    'Authorization' => 'Bearer test-token',
+                    'Content-Type' => 'application/json'
                 ]
             )
             ->willReturn($expectedResponse);
@@ -87,15 +86,14 @@ class ZaloBotTest extends TestCase
             ->expects($this->once())
             ->method('post')
             ->with(
-                'https://bot-api.zapps.me/bot/test-token/sendPhoto',
+                'https://bot-api.zapps.me/bottest-token/sendPhoto',
                 [
                     'chat_id' => 'test-chat',
                     'photo' => 'https://example.com/photo.jpg',
                     'caption' => 'Test photo'
                 ],
                 [
-                    'Content-Type' => 'application/json',
-                    'Authorization' => 'Bearer test-token',
+                    'Content-Type' => 'application/json'
                 ]
             )
             ->willReturn($expectedResponse);
@@ -106,7 +104,7 @@ class ZaloBotTest extends TestCase
     }
 
     #[Test]
-    public function it_can_send_document(): void
+    public function it_can_send_sticker(): void
     {
         $expectedResponse = ['ok' => true, 'result' => ['message_id' => 125]];
         
@@ -114,20 +112,18 @@ class ZaloBotTest extends TestCase
             ->expects($this->once())
             ->method('post')
             ->with(
-                'https://bot-api.zapps.me/bot/test-token/sendDocument',
+                'https://bot-api.zapps.me/bottest-token/sendSticker',
                 [
                     'chat_id' => 'test-chat',
-                    'document' => 'https://example.com/document.pdf',
-                    'caption' => 'Test document'
+                    'sticker' => 'sticker_id_from_stickers.zaloapp.com'
                 ],
                 [
-                    'Content-Type' => 'application/json',
-                    'Authorization' => 'Bearer test-token',
+                    'Content-Type' => 'application/json'
                 ]
             )
             ->willReturn($expectedResponse);
 
-        $result = $this->bot->sendDocument('test-chat', 'https://example.com/document.pdf', 'Test document');
+        $result = $this->bot->sendSticker('test-chat', 'sticker_id_from_stickers.zaloapp.com');
 
         $this->assertEquals($expectedResponse, $result);
     }
@@ -141,11 +137,10 @@ class ZaloBotTest extends TestCase
             ->expects($this->once())
             ->method('post')
             ->with(
-                'https://bot-api.zapps.me/bot/test-token/getUserProfile',
+                'https://bot-api.zapps.me/bottest-token/getUserProfile',
                 ['user_id' => 'user123'],
                 [
-                    'Content-Type' => 'application/json',
-                    'Authorization' => 'Bearer test-token',
+                    'Content-Type' => 'application/json'
                 ]
             )
             ->willReturn($expectedResponse);
@@ -164,11 +159,10 @@ class ZaloBotTest extends TestCase
             ->expects($this->once())
             ->method('post')
             ->with(
-                'https://bot-api.zapps.me/bot/test-token/setWebhook',
+                'https://bot-api.zapps.me/bottest-token/setWebhook',
                 ['url' => 'https://example.com/webhook'],
                 [
-                    'Content-Type' => 'application/json',
-                    'Authorization' => 'Bearer test-token',
+                    'Content-Type' => 'application/json'
                 ]
             )
             ->willReturn($expectedResponse);
@@ -187,11 +181,10 @@ class ZaloBotTest extends TestCase
             ->expects($this->once())
             ->method('post')
             ->with(
-                'https://bot-api.zapps.me/bot/test-token/deleteWebhook',
+                'https://bot-api.zapps.me/bottest-token/deleteWebhook',
                 [],
                 [
-                    'Content-Type' => 'application/json',
-                    'Authorization' => 'Bearer test-token',
+                    'Content-Type' => 'application/json'
                 ]
             )
             ->willReturn($expectedResponse);
@@ -210,11 +203,10 @@ class ZaloBotTest extends TestCase
             ->expects($this->once())
             ->method('post')
             ->with(
-                'https://bot-api.zapps.me/bot/test-token/getWebhookInfo',
+                'https://bot-api.zapps.me/bottest-token/getWebhookInfo',
                 [],
                 [
-                    'Content-Type' => 'application/json',
-                    'Authorization' => 'Bearer test-token',
+                    'Content-Type' => 'application/json'
                 ]
             )
             ->willReturn($expectedResponse);

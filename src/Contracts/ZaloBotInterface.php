@@ -13,7 +13,7 @@ interface ZaloBotInterface
     public function getHttpClient(): HttpClientInterface;
     public function sendMessage(string $chatId, string $text): array;
     public function sendPhoto(string $chatId, string $photo, ?string $caption = null): array;
-    public function sendDocument(string $chatId, string $document, ?string $caption = null): array;
+    public function sendSticker(string $chatId, string $sticker): array;
     public function getUserProfile(string $userId): array;
     public function setWebhook(string $url): array;
     public function deleteWebhook(): array;

@@ -42,6 +42,18 @@ try {
     echo "Error sending photo: " . $e->getMessage() . "\n";
 }
 
+// Example: Send a sticker
+try {
+    $stickerUrl = 'sticker_id_from_stickers.zaloapp.com'; // Get from https://stickers.zaloapp.com/
+    
+    $result = $bot->sendSticker($chatId, $stickerUrl);
+    echo "Sticker sent successfully!\n";
+    print_r($result);
+    
+} catch (Exception $e) {
+    echo "Error sending sticker: " . $e->getMessage() . "\n";
+}
+
 // Example: Get user profile
 try {
     $userId = 'USER_ID_HERE'; // Replace with actual user ID

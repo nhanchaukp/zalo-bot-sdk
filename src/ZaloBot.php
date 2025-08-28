@@ -92,20 +92,14 @@ final class ZaloBot implements ZaloBotInterface
     }
 
     /**
-     * Send a document
+     * Send a sticker
      */
-    public function sendDocument(string $chatId, string $document, ?string $caption = null): array
+    public function sendSticker(string $chatId, string $sticker): array
     {
-        $params = [
+        return $this->makeRequest('sendSticker', [
             'chat_id' => $chatId,
-            'document' => $document,
-        ];
-
-        if ($caption !== null) {
-            $params['caption'] = $caption;
-        }
-
-        return $this->makeRequest('sendDocument', $params);
+            'sticker' => $sticker,
+        ]);
     }
 
     /**
