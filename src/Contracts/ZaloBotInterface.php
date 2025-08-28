@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace NhanChauKP\ZaloBotSdk\Contracts;
 
 use Illuminate\Support\Collection;
+use NhanChauKP\ZaloBotSdk\Enums\ChatAction;
 
 interface ZaloBotInterface
 {
@@ -14,7 +15,7 @@ interface ZaloBotInterface
     public function sendMessage(string $chatId, string $text): array;
     public function sendPhoto(string $chatId, string $photo, ?string $caption = null): array;
     public function sendSticker(string $chatId, string $sticker): array;
-    public function getUserProfile(string $userId): array;
+    public function sendChatAction(string $chatId, ChatAction $action): array;
     public function setWebhook(string $url): array;
     public function deleteWebhook(): array;
     public function getWebhookInfo(): array;

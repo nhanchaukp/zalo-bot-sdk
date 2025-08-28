@@ -51,9 +51,17 @@ Route::prefix('api/zalo/test')->group(function () {
         
         return response()->json($result);
     });
-    
-    Route::get('/user-profile/{userId}', function ($userId) {
-        $result = \NhanChauKP\ZaloBotSdk\Facades\ZaloBot::getUserProfile($userId);
+
+    Route::post('/chat-action', function () {
+        $chatId = request('chat_id');
+        $action = request('action'); // typing | upload_photo
+        
+        $enum = match ($action) {
+            'upload_photo' => \NhanChauKP\ZaloBotSdk\Enums\ChatAction::UploadPhoto,
+            default => \NhanChauKP\ZaloBotSdk\Enums\ChatAction::Typing,
+        };
+        
+        $result = \NhanChauKP\ZaloBotSdk\Facades\ZaloBot::sendChatAction($chatId, $enum);
         
         return response()->json($result);
     });

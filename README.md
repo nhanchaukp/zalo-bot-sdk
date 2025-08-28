@@ -105,10 +105,18 @@ ZaloBot::sendPhoto('chat_id', 'https://example.com/image.jpg', 'Caption cho hìn
 ZaloBot::sendSticker('chat_id', 'sticker_id_from_stickers_zaloapp_com');
 ```
 
-### Lấy thông tin user
+### Hiển thị trạng thái (sendChatAction)
+
+Tham khảo tài liệu: https://bot.zapps.me/docs/apis/sendChatAction/
 
 ```php
-$profile = ZaloBot::getUserProfile('user_id');
+use NhanChauKP\ZaloBotSdk\Enums\ChatAction;
+
+// Đang soạn tin nhắn
+ZaloBot::sendChatAction('chat_id', ChatAction::Typing);
+
+// Đang tải ảnh (sắp ra mắt)
+ZaloBot::sendChatAction('chat_id', ChatAction::UploadPhoto);
 ```
 
 ### Webhook
