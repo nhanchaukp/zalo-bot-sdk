@@ -26,7 +26,7 @@ use NhanChauKP\ZaloBotSdk\Services\ZaloBotManager;
  * @method static \Illuminate\Support\Collection getCommands()
  * @method static mixed processUpdate(array $update)
  *
- * @see \NhanChauKP\ZaloBotSdk\Services\ZaloBotManager
+ * @see ZaloBotManager
  */
 final class ZaloBot extends Facade
 {

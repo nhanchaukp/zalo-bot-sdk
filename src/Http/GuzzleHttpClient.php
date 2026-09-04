@@ -27,7 +27,7 @@ final class GuzzleHttpClient implements HttpClientInterface
 
             return json_decode($response->getBody()->getContents(), true) ?? [];
         } catch (GuzzleException $e) {
-            throw new ZaloBotException('HTTP GET request failed: ' . $e->getMessage(), $e->getCode(), $e);
+            throw new ZaloBotException('HTTP GET request failed: '.$e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -41,7 +41,7 @@ final class GuzzleHttpClient implements HttpClientInterface
 
             return json_decode($response->getBody()->getContents(), true) ?? [];
         } catch (GuzzleException $e) {
-            throw new ZaloBotException('HTTP POST request failed: ' . $e->getMessage(), $e->getCode(), $e);
+            throw new ZaloBotException('HTTP POST request failed: '.$e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -55,7 +55,7 @@ final class GuzzleHttpClient implements HttpClientInterface
 
             return json_decode($response->getBody()->getContents(), true) ?? [];
         } catch (GuzzleException $e) {
-            throw new ZaloBotException('HTTP PUT request failed: ' . $e->getMessage(), $e->getCode(), $e);
+            throw new ZaloBotException('HTTP PUT request failed: '.$e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -68,7 +68,7 @@ final class GuzzleHttpClient implements HttpClientInterface
 
             return json_decode($response->getBody()->getContents(), true) ?? [];
         } catch (GuzzleException $e) {
-            throw new ZaloBotException('HTTP DELETE request failed: ' . $e->getMessage(), $e->getCode(), $e);
+            throw new ZaloBotException('HTTP DELETE request failed: '.$e->getMessage(), $e->getCode(), $e);
         }
     }
 }

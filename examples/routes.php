@@ -2,12 +2,14 @@
 
 /**
  * Example routes for Zalo Bot SDK
- * 
+ *
  * Add these routes to your routes/web.php or routes/api.php file
  */
 
 use App\Http\Controllers\ZaloWebhookController;
 use Illuminate\Support\Facades\Route;
+use NhanChauKP\ZaloBotSdk\Enums\ChatAction;
+use NhanChauKP\ZaloBotSdk\Facades\ZaloBot;
 
 // Main webhook endpoint
 Route::post('/webhook/zalo', [ZaloWebhookController::class, 'handle'])->name('zalo.webhook');
@@ -27,48 +29,48 @@ Route::prefix('api/zalo/test')->group(function () {
     Route::post('/send-message', function () {
         $chatId = request('chat_id');
         $text = request('text', 'Test message from Zalo Bot SDK');
-        
-        $result = \NhanChauKP\ZaloBotSdk\Facades\ZaloBot::sendMessage($chatId, $text);
-        
+
+        $result = ZaloBot::sendMessage($chatId, $text);
+
         return response()->json($result);
     });
-    
+
     Route::post('/send-photo', function () {
         $chatId = request('chat_id');
         $photo = request('photo');
         $caption = request('caption');
-        
-        $result = \NhanChauKP\ZaloBotSdk\Facades\ZaloBot::sendPhoto($chatId, $photo, $caption);
-        
+
+        $result = ZaloBot::sendPhoto($chatId, $photo, $caption);
+
         return response()->json($result);
     });
-    
+
     Route::post('/send-sticker', function () {
         $chatId = request('chat_id');
         $sticker = request('sticker');
-        
-        $result = \NhanChauKP\ZaloBotSdk\Facades\ZaloBot::sendSticker($chatId, $sticker);
-        
+
+        $result = ZaloBot::sendSticker($chatId, $sticker);
+
         return response()->json($result);
     });
 
     Route::post('/chat-action', function () {
         $chatId = request('chat_id');
         $action = request('action'); // typing | upload_photo
-        
+
         $enum = match ($action) {
-            'upload_photo' => \NhanChauKP\ZaloBotSdk\Enums\ChatAction::UploadPhoto,
-            default => \NhanChauKP\ZaloBotSdk\Enums\ChatAction::Typing,
+            'upload_photo' => ChatAction::UploadPhoto,
+            default => ChatAction::Typing,
         };
-        
-        $result = \NhanChauKP\ZaloBotSdk\Facades\ZaloBot::sendChatAction($chatId, $enum);
-        
+
+        $result = ZaloBot::sendChatAction($chatId, $enum);
+
         return response()->json($result);
     });
-    
+
     Route::get('/commands', function () {
-        $commands = \NhanChauKP\ZaloBotSdk\Facades\ZaloBot::getCommands();
-        
+        $commands = ZaloBot::getCommands();
+
         return response()->json([
             'commands' => $commands->map(function ($command) {
                 return [
@@ -76,7 +78,7 @@ Route::prefix('api/zalo/test')->group(function () {
                     'description' => $command->getDescription(),
                     'aliases' => $command->getAliases(),
                 ];
-            })
+            }),
         ]);
     });
 });

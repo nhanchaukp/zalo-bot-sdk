@@ -14,13 +14,14 @@ use PHPUnit\Framework\Attributes\Test;
 class HelpCommandTest extends TestCase
 {
     private HelpCommand $command;
+
     private ZaloBotInterface $bot;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->command = new HelpCommand();
+        $this->command = new HelpCommand;
         $this->bot = $this->createMock(ZaloBotInterface::class);
     }
 
@@ -38,14 +39,14 @@ class HelpCommandTest extends TestCase
         $update = [
             'message' => [
                 'chat' => ['id' => 'chat123'],
-                'text' => '/help'
-            ]
+                'text' => '/help',
+            ],
         ];
 
         $this->bot
             ->expects($this->once())
             ->method('getCommands')
-            ->willReturn(new Collection());
+            ->willReturn(new Collection);
 
         $this->bot
             ->expects($this->once())
@@ -63,8 +64,8 @@ class HelpCommandTest extends TestCase
         $update = [
             'message' => [
                 'chat' => ['id' => 'chat123'],
-                'text' => '/help'
-            ]
+                'text' => '/help',
+            ],
         ];
 
         $mockCommand1 = $this->createMock(Command::class);
@@ -87,7 +88,7 @@ class HelpCommandTest extends TestCase
         $expectedMessage = "📋 **Danh sách lệnh có sẵn:**\n\n";
         $expectedMessage .= "🔹 **/start** (aliases: /begin)\n   Start the bot\n\n";
         $expectedMessage .= "🔹 **/info**\n   Get bot info\n\n";
-        $expectedMessage .= "💡 Gõ lệnh bằng cách thêm dấu `/` trước tên lệnh.";
+        $expectedMessage .= '💡 Gõ lệnh bằng cách thêm dấu `/` trước tên lệnh.';
 
         $this->bot
             ->expects($this->once())
@@ -105,8 +106,8 @@ class HelpCommandTest extends TestCase
         $update = [
             'message' => [
                 'chat' => ['id' => 'chat123'],
-                'text' => '/help'
-            ]
+                'text' => '/help',
+            ],
         ];
 
         $mockCommand = $this->createMock(Command::class);
@@ -123,7 +124,7 @@ class HelpCommandTest extends TestCase
 
         $expectedMessage = "📋 **Danh sách lệnh có sẵn:**\n\n";
         $expectedMessage .= "🔹 **/test**\n   Test command\n\n";
-        $expectedMessage .= "💡 Gõ lệnh bằng cách thêm dấu `/` trước tên lệnh.";
+        $expectedMessage .= '💡 Gõ lệnh bằng cách thêm dấu `/` trước tên lệnh.';
 
         $this->bot
             ->expects($this->once())

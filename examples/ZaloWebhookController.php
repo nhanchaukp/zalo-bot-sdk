@@ -11,7 +11,7 @@ use NhanChauKP\ZaloBotSdk\Facades\ZaloBot;
 
 /**
  * Example Webhook Controller
- * 
+ *
  * Copy this file to your app/Http/Controllers directory
  * and add the route in your routes file.
  */
@@ -24,38 +24,38 @@ class ZaloWebhookController extends Controller
     {
         try {
             $update = $request->all();
-            
+
             // Log incoming update for debugging
             Log::info('Zalo webhook received', ['update' => $update]);
-            
+
             // Process the update
             $result = ZaloBot::processUpdate($update);
-            
+
             // Log the result
             if ($result !== null) {
                 Log::info('Zalo command processed', ['result' => $result]);
             }
-            
+
             return response()->json([
                 'status' => 'success',
-                'message' => 'Webhook processed successfully'
+                'message' => 'Webhook processed successfully',
             ]);
-            
+
         } catch (\Exception $e) {
             // Log error
             Log::error('Zalo webhook error', [
                 'error' => $e->getMessage(),
                 'trace' => $e->getTraceAsString(),
-                'update' => $request->all()
+                'update' => $request->all(),
             ]);
-            
+
             return response()->json([
                 'status' => 'error',
-                'message' => 'Internal server error'
+                'message' => 'Internal server error',
             ], 500);
         }
     }
-    
+
     /**
      * Handle webhook for specific bot
      */
@@ -63,29 +63,29 @@ class ZaloWebhookController extends Controller
     {
         try {
             $update = $request->all();
-            
+
             // Process with specific bot
             $result = ZaloBot::bot($botName)->processUpdate($update);
-            
+
             return response()->json([
                 'status' => 'success',
                 'bot' => $botName,
-                'message' => 'Webhook processed successfully'
+                'message' => 'Webhook processed successfully',
             ]);
-            
+
         } catch (\Exception $e) {
-            Log::error('Zalo webhook error for bot: ' . $botName, [
+            Log::error('Zalo webhook error for bot: '.$botName, [
                 'error' => $e->getMessage(),
-                'update' => $request->all()
+                'update' => $request->all(),
             ]);
-            
+
             return response()->json([
                 'status' => 'error',
-                'message' => 'Internal server error'
+                'message' => 'Internal server error',
             ], 500);
         }
     }
-    
+
     /**
      * Set webhook URL
      */
@@ -93,27 +93,27 @@ class ZaloWebhookController extends Controller
     {
         $request->validate([
             'url' => 'required|url',
-            'bot' => 'nullable|string'
+            'bot' => 'nullable|string',
         ]);
-        
+
         try {
             $bot = $request->input('bot') ? ZaloBot::bot($request->input('bot')) : ZaloBot::bot();
             $result = $bot->setWebhook($request->input('url'));
-            
+
             return response()->json([
                 'status' => 'success',
                 'message' => 'Webhook set successfully',
-                'result' => $result
+                'result' => $result,
             ]);
-            
+
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => $e->getMessage()
+                'message' => $e->getMessage(),
             ], 400);
         }
     }
-    
+
     /**
      * Delete webhook
      */
@@ -122,21 +122,21 @@ class ZaloWebhookController extends Controller
         try {
             $bot = $request->input('bot') ? ZaloBot::bot($request->input('bot')) : ZaloBot::bot();
             $result = $bot->deleteWebhook();
-            
+
             return response()->json([
                 'status' => 'success',
                 'message' => 'Webhook deleted successfully',
-                'result' => $result
+                'result' => $result,
             ]);
-            
+
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => $e->getMessage()
+                'message' => $e->getMessage(),
             ], 400);
         }
     }
-    
+
     /**
      * Get webhook info
      */
@@ -145,16 +145,16 @@ class ZaloWebhookController extends Controller
         try {
             $bot = $request->input('bot') ? ZaloBot::bot($request->input('bot')) : ZaloBot::bot();
             $result = $bot->getWebhookInfo();
-            
+
             return response()->json([
                 'status' => 'success',
-                'result' => $result
+                'result' => $result,
             ]);
-            
+
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => $e->getMessage()
+                'message' => $e->getMessage(),
             ], 400);
         }
     }

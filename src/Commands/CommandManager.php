@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace NhanChauKP\ZaloBotSdk\Commands;
 
 use Illuminate\Support\Collection;
-use NhanChauKP\ZaloBotSdk\Exceptions\ZaloBotException;
 use NhanChauKP\ZaloBotSdk\Contracts\ZaloBotInterface;
+use NhanChauKP\ZaloBotSdk\Exceptions\ZaloBotException;
 
 final class CommandManager
 {
@@ -14,7 +14,7 @@ final class CommandManager
 
     public function __construct()
     {
-        $this->commands = new Collection();
+        $this->commands = new Collection;
     }
 
     /**
@@ -24,11 +24,11 @@ final class CommandManager
     {
         if (class_exists($command)) {
             $instance = app($command);
-            
-            if (!$instance instanceof Command) {
+
+            if (! $instance instanceof Command) {
                 throw new ZaloBotException("Command {$command} must extend Command class.");
             }
-            
+
             $this->commands->put($instance->getName(), $instance);
         }
 
@@ -91,8 +91,8 @@ final class CommandManager
     public function processUpdate(array $update, ZaloBotInterface $bot): mixed
     {
         $text = $this->extractCommandFromUpdate($update);
-        
-        if ($text === null || !str_starts_with($text, '/')) {
+
+        if ($text === null || ! str_starts_with($text, '/')) {
             return null; // Not a command
         }
 
@@ -107,7 +107,7 @@ final class CommandManager
             return $command->handle($update, $bot);
         } catch (\Exception $e) {
             throw new ZaloBotException(
-                "Error executing command '{$commandName}': " . $e->getMessage(),
+                "Error executing command '{$commandName}': ".$e->getMessage(),
                 $e->getCode(),
                 $e
             );
@@ -119,8 +119,8 @@ final class CommandManager
      */
     protected function extractCommandFromUpdate(array $update): ?string
     {
-        return $update['message']['text'] ?? 
-               $update['callback_query']['data'] ?? 
+        return $update['message']['text'] ??
+               $update['callback_query']['data'] ??
                null;
     }
 
@@ -131,7 +131,7 @@ final class CommandManager
     {
         $text = ltrim($text, '/');
         $parts = explode(' ', $text);
-        
+
         return strtolower($parts[0] ?? '');
     }
 

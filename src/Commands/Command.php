@@ -78,8 +78,8 @@ abstract class Command
      */
     protected function getChatId(array $update): ?string
     {
-        return $update['message']['chat']['id'] ?? 
-               $update['callback_query']['message']['chat']['id'] ?? 
+        return $update['message']['chat']['id'] ??
+               $update['callback_query']['message']['chat']['id'] ??
                null;
     }
 
@@ -88,8 +88,8 @@ abstract class Command
      */
     protected function getUserId(array $update): ?string
     {
-        return $update['message']['from']['id'] ?? 
-               $update['callback_query']['from']['id'] ?? 
+        return $update['message']['from']['id'] ??
+               $update['callback_query']['from']['id'] ??
                null;
     }
 
@@ -98,8 +98,8 @@ abstract class Command
      */
     protected function getMessageText(array $update): ?string
     {
-        return $update['message']['text'] ?? 
-               $update['callback_query']['data'] ?? 
+        return $update['message']['text'] ??
+               $update['callback_query']['data'] ??
                null;
     }
 
@@ -109,10 +109,10 @@ abstract class Command
     protected function getCommandArguments(string $text): array
     {
         $parts = explode(' ', trim($text));
-        
+
         // Remove the command name (first part)
         array_shift($parts);
-        
+
         return array_filter($parts);
     }
 
@@ -122,7 +122,7 @@ abstract class Command
     protected function reply(array $update, ZaloBotInterface $bot, string $message): array
     {
         $chatId = $this->getChatId($update);
-        
+
         if ($chatId === null) {
             throw new \InvalidArgumentException('Unable to determine chat ID from update.');
         }

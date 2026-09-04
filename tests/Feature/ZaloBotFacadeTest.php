@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace NhanChauKP\ZaloBotSdk\Tests\Feature;
 
+use Illuminate\Support\Collection;
 use NhanChauKP\ZaloBotSdk\Facades\ZaloBot;
 use NhanChauKP\ZaloBotSdk\Services\ZaloBotManager;
 use NhanChauKP\ZaloBotSdk\Tests\TestCase;
@@ -65,6 +66,6 @@ class ZaloBotFacadeTest extends TestCase
     {
         $commands = ZaloBot::getCommands();
 
-        $this->assertInstanceOf(\Illuminate\Support\Collection::class, $commands);
+        $this->assertInstanceOf(Collection::class, $commands);
     }
 }

@@ -14,13 +14,15 @@ use NhanChauKP\ZaloBotSdk\ZaloBot;
 final class ZaloBotManager
 {
     protected Application $app;
+
     protected Collection $bots;
+
     protected array $config;
 
     public function __construct(Application $app)
     {
         $this->app = $app;
-        $this->bots = new Collection();
+        $this->bots = new Collection;
         $this->config = $app['config']['zalo-bot'] ?? [];
     }
 
@@ -81,7 +83,7 @@ final class ZaloBotManager
     {
         $bots = $this->config['bots'] ?? [];
 
-        if (!isset($bots[$name])) {
+        if (! isset($bots[$name])) {
             throw new ZaloBotException("Bot configuration for '{$name}' not found.");
         }
 

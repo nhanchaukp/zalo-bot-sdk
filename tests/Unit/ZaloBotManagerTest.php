@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace NhanChauKP\ZaloBotSdk\Tests\Unit;
 
-use Illuminate\Contracts\Foundation\Application;
+use NhanChauKP\ZaloBotSdk\Exceptions\ZaloBotException;
 use NhanChauKP\ZaloBotSdk\Services\ZaloBotManager;
 use NhanChauKP\ZaloBotSdk\Tests\TestCase;
 use NhanChauKP\ZaloBotSdk\ZaloBot;
@@ -87,7 +87,7 @@ class ZaloBotManagerTest extends TestCase
     #[Test]
     public function it_throws_exception_for_nonexistent_bot(): void
     {
-        $this->expectException(\NhanChauKP\ZaloBotSdk\Exceptions\ZaloBotException::class);
+        $this->expectException(ZaloBotException::class);
         $this->expectExceptionMessage("Bot configuration for 'nonexistent' not found.");
 
         $this->manager->bot('nonexistent');
@@ -97,11 +97,11 @@ class ZaloBotManagerTest extends TestCase
     public function it_throws_exception_for_bot_without_token(): void
     {
         $this->app['config']->set('zalo-bot.bots.no_token', ['webhook_url' => 'https://example.com']);
-        
+
         // Recreate manager to get new config
         $manager = new ZaloBotManager($this->app);
 
-        $this->expectException(\NhanChauKP\ZaloBotSdk\Exceptions\ZaloBotException::class);
+        $this->expectException(ZaloBotException::class);
         $this->expectExceptionMessage("Bot token for 'no_token' is not configured.");
 
         $manager->bot('no_token');

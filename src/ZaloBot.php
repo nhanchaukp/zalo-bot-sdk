@@ -15,9 +15,13 @@ use NhanChauKP\ZaloBotSdk\Http\GuzzleHttpClient;
 final class ZaloBot implements ZaloBotInterface
 {
     protected string $token;
+
     protected string $baseUrl;
+
     protected ?HttpClientInterface $httpClient;
+
     protected CommandManager $commandManager;
+
     protected array $config;
 
     public function __construct(
@@ -28,8 +32,8 @@ final class ZaloBot implements ZaloBotInterface
         $this->token = $token;
         $this->config = $config;
         $this->baseUrl = $config['base_bot_url'] ?? 'https://bot-api.zapps.me/bot';
-        $this->httpClient = $httpClient ?? new GuzzleHttpClient();
-        $this->commandManager = new CommandManager();
+        $this->httpClient = $httpClient ?? new GuzzleHttpClient;
+        $this->commandManager = new CommandManager;
     }
 
     /**
@@ -191,17 +195,17 @@ final class ZaloBot implements ZaloBotInterface
      */
     protected function makeRequest(string $method, array $params = []): array
     {
-        $url = $this->baseUrl . $this->token . '/' . $method;
+        $url = $this->baseUrl.$this->token.'/'.$method;
 
         $headers = [
-            'Content-Type' => 'application/json'
+            'Content-Type' => 'application/json',
         ];
 
         try {
             return $this->httpClient->post($url, $params, $headers);
         } catch (ZaloBotException $e) {
             throw new ZaloBotException(
-                "Zalo Bot API request failed for method '{$method}': " . $e->getMessage(),
+                "Zalo Bot API request failed for method '{$method}': ".$e->getMessage(),
                 $e->getCode(),
                 $e
             );

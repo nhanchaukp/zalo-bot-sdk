@@ -12,13 +12,14 @@ use PHPUnit\Framework\Attributes\Test;
 class CommandTest extends TestCase
 {
     private TestCommand $command;
+
     private ZaloBotInterface $bot;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->command = new TestCommand();
+        $this->command = new TestCommand;
         $this->bot = $this->createMock(ZaloBotInterface::class);
     }
 
@@ -62,8 +63,8 @@ class CommandTest extends TestCase
             'message' => [
                 'chat' => ['id' => 'chat123'],
                 'from' => ['id' => 'user456'],
-                'text' => '/test hello world'
-            ]
+                'text' => '/test hello world',
+            ],
         ];
 
         $chatId = $this->command->getChatId($update);
@@ -77,8 +78,8 @@ class CommandTest extends TestCase
             'message' => [
                 'chat' => ['id' => 'chat123'],
                 'from' => ['id' => 'user456'],
-                'text' => '/test hello world'
-            ]
+                'text' => '/test hello world',
+            ],
         ];
 
         $userId = $this->command->getUserId($update);
@@ -90,8 +91,8 @@ class CommandTest extends TestCase
     {
         $update = [
             'message' => [
-                'text' => '/test hello world'
-            ]
+                'text' => '/test hello world',
+            ],
         ];
 
         $text = $this->command->getMessageText($update);
@@ -114,8 +115,8 @@ class CommandTest extends TestCase
             'message' => [
                 'chat' => ['id' => 'chat123'],
                 'from' => ['id' => 'user456'],
-                'text' => '/test'
-            ]
+                'text' => '/test',
+            ],
         ];
 
         $this->bot
@@ -134,8 +135,8 @@ class CommandTest extends TestCase
         $update = [
             'message' => [
                 'from' => ['id' => 'user456'],
-                'text' => '/test'
-            ]
+                'text' => '/test',
+            ],
         ];
 
         $this->expectException(\InvalidArgumentException::class);
@@ -148,7 +149,9 @@ class CommandTest extends TestCase
 class TestCommand extends Command
 {
     protected string $name = 'test';
+
     protected string $description = 'Test command';
+
     protected array $aliases = ['t', 'testing'];
 
     public function handle(array $update, ZaloBotInterface $bot): mixed

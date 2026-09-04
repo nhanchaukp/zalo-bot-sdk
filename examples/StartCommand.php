@@ -9,21 +9,23 @@ use NhanChauKP\ZaloBotSdk\ZaloBot;
 
 /**
  * Example Start Command
- * 
+ *
  * Copy this file to your app/ZaloBots/Commands directory
  * and register it in your zalo-bot config file.
  */
 class StartCommand extends Command
 {
     protected string $name = 'start';
+
     protected string $description = 'Khởi động bot và hiển thị lời chào';
+
     protected array $aliases = ['begin', 'hello'];
 
     public function handle(array $update, ZaloBot $bot): mixed
     {
         $userId = $this->getUserId($update);
-        
-        if (!$userId) {
+
+        if (! $userId) {
             return null;
         }
 
@@ -41,7 +43,7 @@ class StartCommand extends Command
         $message .= "• /help - Xem tất cả lệnh\n";
         $message .= "• /start - Khởi động lại bot\n";
         $message .= "• /info - Thông tin về bot\n\n";
-        $message .= "💡 Gõ /help để xem danh sách đầy đủ các lệnh.";
+        $message .= '💡 Gõ /help để xem danh sách đầy đủ các lệnh.';
 
         return $this->reply($update, $bot, $message);
     }

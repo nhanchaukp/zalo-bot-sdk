@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace NhanChauKP\ZaloBotSdk\Tests;
 
+use NhanChauKP\ZaloBotSdk\Facades\ZaloBot;
 use NhanChauKP\ZaloBotSdk\ZaloBotServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
@@ -37,7 +38,7 @@ abstract class TestCase extends Orchestra
     protected function getPackageAliases($app): array
     {
         return [
-            'ZaloBot' => \NhanChauKP\ZaloBotSdk\Facades\ZaloBot::class,
+            'ZaloBot' => ZaloBot::class,
         ];
     }
 }

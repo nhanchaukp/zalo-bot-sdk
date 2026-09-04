@@ -6,6 +6,7 @@ namespace NhanChauKP\ZaloBotSdk\Tests\Unit;
 
 use NhanChauKP\ZaloBotSdk\Commands\CommandManager;
 use NhanChauKP\ZaloBotSdk\Contracts\HttpClientInterface;
+use NhanChauKP\ZaloBotSdk\Enums\ChatAction;
 use NhanChauKP\ZaloBotSdk\Tests\TestCase;
 use NhanChauKP\ZaloBotSdk\ZaloBot;
 use PHPUnit\Framework\Attributes\Test;
@@ -13,6 +14,7 @@ use PHPUnit\Framework\Attributes\Test;
 class ZaloBotTest extends TestCase
 {
     private ZaloBot $bot;
+
     private HttpClientInterface $mockHttpClient;
 
     protected function setUp(): void
@@ -21,7 +23,7 @@ class ZaloBotTest extends TestCase
 
         $this->mockHttpClient = $this->createMock(HttpClientInterface::class);
         $this->bot = new ZaloBot('test-token', [
-            'base_bot_url' => 'https://bot-api.zapps.me/bot'
+            'base_bot_url' => 'https://bot-api.zapps.me/bot',
         ], $this->mockHttpClient);
     }
 
@@ -59,7 +61,7 @@ class ZaloBotTest extends TestCase
     public function it_can_send_message(): void
     {
         $expectedResponse = ['ok' => true, 'result' => ['message_id' => 123]];
-        
+
         $this->mockHttpClient
             ->expects($this->once())
             ->method('post')
@@ -67,7 +69,7 @@ class ZaloBotTest extends TestCase
                 'https://bot-api.zapps.me/bottest-token/sendMessage',
                 ['chat_id' => 'test-chat', 'text' => 'Hello World'],
                 [
-                    'Content-Type' => 'application/json'
+                    'Content-Type' => 'application/json',
                 ]
             )
             ->willReturn($expectedResponse);
@@ -81,7 +83,7 @@ class ZaloBotTest extends TestCase
     public function it_can_send_photo(): void
     {
         $expectedResponse = ['ok' => true, 'result' => ['message_id' => 124]];
-        
+
         $this->mockHttpClient
             ->expects($this->once())
             ->method('post')
@@ -90,10 +92,10 @@ class ZaloBotTest extends TestCase
                 [
                     'chat_id' => 'test-chat',
                     'photo' => 'https://example.com/photo.jpg',
-                    'caption' => 'Test photo'
+                    'caption' => 'Test photo',
                 ],
                 [
-                    'Content-Type' => 'application/json'
+                    'Content-Type' => 'application/json',
                 ]
             )
             ->willReturn($expectedResponse);
@@ -107,7 +109,7 @@ class ZaloBotTest extends TestCase
     public function it_can_send_sticker(): void
     {
         $expectedResponse = ['ok' => true, 'result' => ['message_id' => 125]];
-        
+
         $this->mockHttpClient
             ->expects($this->once())
             ->method('post')
@@ -115,10 +117,10 @@ class ZaloBotTest extends TestCase
                 'https://bot-api.zapps.me/bottest-token/sendSticker',
                 [
                     'chat_id' => 'test-chat',
-                    'sticker' => 'sticker_id_from_stickers.zaloapp.com'
+                    'sticker' => 'sticker_id_from_stickers.zaloapp.com',
                 ],
                 [
-                    'Content-Type' => 'application/json'
+                    'Content-Type' => 'application/json',
                 ]
             )
             ->willReturn($expectedResponse);
@@ -132,7 +134,7 @@ class ZaloBotTest extends TestCase
     public function it_can_send_chat_action_typing(): void
     {
         $expectedResponse = ['ok' => true];
-        
+
         $this->mockHttpClient
             ->expects($this->once())
             ->method('post')
@@ -140,12 +142,12 @@ class ZaloBotTest extends TestCase
                 'https://bot-api.zapps.me/bottest-token/sendChatAction',
                 ['chat_id' => 'test-chat', 'action' => 'typing'],
                 [
-                    'Content-Type' => 'application/json'
+                    'Content-Type' => 'application/json',
                 ]
             )
             ->willReturn($expectedResponse);
 
-        $result = $this->bot->sendChatAction('test-chat', \NhanChauKP\ZaloBotSdk\Enums\ChatAction::Typing);
+        $result = $this->bot->sendChatAction('test-chat', ChatAction::Typing);
 
         $this->assertEquals($expectedResponse, $result);
     }
@@ -154,7 +156,7 @@ class ZaloBotTest extends TestCase
     public function it_can_set_webhook(): void
     {
         $expectedResponse = ['ok' => true, 'result' => true];
-        
+
         $this->mockHttpClient
             ->expects($this->once())
             ->method('post')
@@ -162,7 +164,7 @@ class ZaloBotTest extends TestCase
                 'https://bot-api.zapps.me/bottest-token/setWebhook',
                 ['url' => 'https://example.com/webhook'],
                 [
-                    'Content-Type' => 'application/json'
+                    'Content-Type' => 'application/json',
                 ]
             )
             ->willReturn($expectedResponse);
@@ -176,7 +178,7 @@ class ZaloBotTest extends TestCase
     public function it_can_delete_webhook(): void
     {
         $expectedResponse = ['ok' => true, 'result' => true];
-        
+
         $this->mockHttpClient
             ->expects($this->once())
             ->method('post')
@@ -184,7 +186,7 @@ class ZaloBotTest extends TestCase
                 'https://bot-api.zapps.me/bottest-token/deleteWebhook',
                 [],
                 [
-                    'Content-Type' => 'application/json'
+                    'Content-Type' => 'application/json',
                 ]
             )
             ->willReturn($expectedResponse);
@@ -198,7 +200,7 @@ class ZaloBotTest extends TestCase
     public function it_can_get_webhook_info(): void
     {
         $expectedResponse = ['ok' => true, 'result' => ['url' => 'https://example.com/webhook']];
-        
+
         $this->mockHttpClient
             ->expects($this->once())
             ->method('post')
@@ -206,7 +208,7 @@ class ZaloBotTest extends TestCase
                 'https://bot-api.zapps.me/bottest-token/getWebhookInfo',
                 [],
                 [
-                    'Content-Type' => 'application/json'
+                    'Content-Type' => 'application/json',
                 ]
             )
             ->willReturn($expectedResponse);
